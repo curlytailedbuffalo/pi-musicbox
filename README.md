@@ -60,7 +60,7 @@ My setup will be based on using the actual 3.5mm port of RPI, if you have a USB 
 1. Write Pi MusicBox image to your SD card. (do not remove SD card when complete)
 2. Open the SD Card -> Config -> Settings.ini in a text editor
 3. Change the MusicBox config settings... the ones you will need to change
-'''
+```
 [network]
 wifi_network = YOUR_WIRELESS_NETWORK
 wifi_password = PASSWORD_FOR_THAT_NETWORK
@@ -96,5 +96,5 @@ mixer = software
 [alsamixer]
 card = 0
 control =  PCM
-'''            
+```        
 
