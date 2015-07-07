@@ -400,7 +400,9 @@ excluded_file_extensions = .html, .jpeg, .jpg, .log, .nfo, .png, .txt, .mkv, .av
   - To SSH into the machine requires that you entered wifi configuration in step 3, or you have an ethernet connection established.
   - It also required you know the IP address of the RPI. For this you can use your router configuration screen to find it or you will need to run the ifconfig option with an HDMI and keyboard connected to the RPI
 2. Once you are in the terminal, you will want to update the pi respositories. to do this you will run the following command.
-``` apt-get update ```
+``` 
+apt-get update 
+```
 3. Next you will want to install and configure the packages for the wifi hotspot. This is done by following the directions from steps 1 to 3 only posted [on this page here](http://elinux.org/RPI-Wireless-Hotspot).
   - I have tested going through all the steps for something else, it broke everything. I do not recommend it.
 After following those steps you have all the packages installed and configured to use your pi as a very basic wifi hotspot that you can access even when there is no internet.
@@ -410,3 +412,5 @@ update-rc.d hostapd disable
 update-rc.d udhcpd disable
 ```
 Our script will take care of launching these services
+
+##Scripting Changes and Additions
