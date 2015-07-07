@@ -6,7 +6,7 @@ Pi Musicbox with added features making it a truly headless media player.
 Pi Musicbox is a headless media player OS for the raspberry pi. - [http://www.woutervanwijk.nl/pimusicbox/](http://www.woutervanwijk.nl/pimusicbox/)
 It runs a version of [Rasbian](https://www.raspbian.org/) with the program [Mopidy](https://www.mopidy.com/) closely integrated into it to allow very easy music listening and internet radio streaming.
 
-**WHAT THE ORIGINAL LACKS**
+##Lacking from the Original
 
 Both mopidy and pi musicbox are amazing systems, but there are a couple things I wanted that they did not have.
 
@@ -15,35 +15,35 @@ Both mopidy and pi musicbox are amazing systems, but there are a couple things I
 - **Interaction from the pi musicbox -** without a screen you don't know what is going on unless you have autoplay set, in which case a song will play when everything is ready to go.
 
 
-**WHAT HAS BEEN ADDED BY ME**
+##Added by Me
 
 - **Truly headless experience** - with some added packages and some updates to the pi musicbox startup script, when it cannot connect to a network it will broadcast a wifi hotspot, which will allow access to the web interface and ssh
 - **GPIO Buttons** - I have created a python script that runs in the background monitoring 4 buttons
 - **I have added and modified a script to play prerecorded speech mp3s, or if online, use google translate for tts**
 
 
-**FLAW IN MY DESIGN**
+##Flaw in my Design
 
 I do not know how to make my own image, that being said my instructions will begin with a fresh installation of pi musicbox on the raspberry pi. A fresh install of pi musicbox does not have my additions. To add the additions you will need a connection to the raspberry pi and the raspberry pi will need a connection to the internet.
 I guess even I cannot say it is truly headless...... until after full setup anyways.
 
 
 
-Install and Configure
+#Installation Information
 ===================
 
-**DOWNLOADS YOU WILL NEED**
+##Downloads You Will Need
 
 Pi MusicBox Image - I have used 0.6, it is the most current, I have not tried with other versions.
 [You can download it from here](http://www.woutervanwijk.nl/pimusicbox/)
 
 **Additional packages being installed**
-		 - hostapd 
-		 - udhcpd - It looks like icm-dhcp-server runs on pi musicbox but I could not get it to work with that 
-		 - mplayer - this is only used for the speech playback - mp3 and tts
+- hostapd 
+- udhcpd - It looks like icm-dhcp-server runs on pi musicbox but I could not get it to work with that 
+- mplayer - this is only used for the speech playback - mp3 and tts
 
 
-**TO BEGIN**
+##To Begin
 
 First let me say that this will work much better if you have already installed Pi MusicBox before and figured out the configuration that works best for you. The english tutorial is [here](http://www.codeproject.com/Articles/838501/Raspberry-Pi-as-low-cost-audio-streaming-box) - 
 Other languages can be found on the [Pi MusicBox download site](http://www.woutervanwijk.nl/pimusicbox/).
@@ -51,7 +51,7 @@ Other languages can be found on the [Pi MusicBox download site](http://www.woute
 My setup will be based on using the actual 3.5mm port of RPI, if you have a USB soundcard the previous tutorial will walk you through the different steps for sound.
 
 
-**INSTALLATION**
+#Installation
 
 1. Write Pi MusicBox image to your SD card. (do not remove SD card when complete)
 2. Open the SD Card -> Config -> Settings.ini in a text editor
