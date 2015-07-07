@@ -52,13 +52,19 @@ My setup will be based on using the actual 3.5mm port of RPI, if you have a USB 
 
 
 #Installation
+The installation is made up of 3 parts. Initial install and config of Pi MusicBox. Initial install and config of new packages. New scripting additions.
+
+##Install and COnfig Pi MusicBox
 
 1. Write Pi MusicBox image to your SD card. (do not remove SD card when complete)
 2. Open the SD Card -> Config -> Settings.ini in a text editor
 3. Change the MusicBox config settings in the settings.ini file you just opened
+  - The settings that matter are directly below.
+  - An example of my config file is just below that.
+4. After saving your new config file, remove the SD card, insert into your RPI and boot it up.
+  - The first boot will be the longest as it resizes your sd card partition and scans for local media
 
-The settings that matter are directly below.
-An example of my config file is just below that.
+**Config that matters most**
 ```
 [network]
 wifi_network = YOUR_WIRELESS_NETWORK
@@ -82,7 +88,9 @@ mixer = software
 card = 0
 control =  PCM
 ```
-This is what my config file looks like.
+
+**This is what my full config file looks like.**
+Read through it to understand if you have never installed Pi MusicBox before.
 ```
 ################################# 
 # Pi MusicBox / Mopidy Settings # 
@@ -386,22 +394,18 @@ excluded_file_extensions = .html, .jpeg, .jpg, .log, .nfo, .png, .txt, .mkv, .av
 
 ```
 
-4. After saving your new config file, remove the SD card, insert into your RPI and boot it up.
-- The first boot will be the longest as it resizes your sd card partition and scans for local media
+##Install and Config New Packages
 
-5. Once the RPI has booted up you will need to access the terminal. If you have an HDMI plugged in with a keyboard that will work, otherwise you will need to SSH into the machine.
-- To SSH into the machine requires that you entered wifi configuration in step 3, or you have an ethernet connection established.
-- It also required you know the IP address of the RPI. For this you can use your router configuration screen to find it or you will need to run the ifconfig option with an HDMI and keyboard connected to the RPI
-
-6. Once you are in the terminal, you will want to update the pi respositories. to do this you will run the following command.
+1. Once the RPI has booted up you will need to access the terminal. If you have an HDMI plugged in with a keyboard that will work, otherwise you will need to SSH into the machine.
+  - To SSH into the machine requires that you entered wifi configuration in step 3, or you have an ethernet connection established.
+  - It also required you know the IP address of the RPI. For this you can use your router configuration screen to find it or you will need to run the ifconfig option with an HDMI and keyboard connected to the RPI
+2. Once you are in the terminal, you will want to update the pi respositories. to do this you will run the following command.
 ``` apt-get update ```
-
-7. Next you will want to install and configure the packages for the wifi hotspot. This is done by following the directions from steps 1 to 3 only posted [on this page here](http://elinux.org/RPI-Wireless-Hotspot).
-** I have tested going through all the steps for something else, it broke everything. I do not recommend it.
-After following those steps you have all the packages installed and configured to use your pi as a very basic wifi hotspot that you can access even when there is no internet. 
-
-8. To make sure these services do not run on boot run the following commands
-``` 
+3. Next you will want to install and configure the packages for the wifi hotspot. This is done by following the directions from steps 1 to 3 only posted [on this page here](http://elinux.org/RPI-Wireless-Hotspot).
+  - I have tested going through all the steps for something else, it broke everything. I do not recommend it.
+After following those steps you have all the packages installed and configured to use your pi as a very basic wifi hotspot that you can access even when there is no internet.
+4. To make sure these services do not run on boot run the following commands
+```
 update-rc.d hostapd disable
 update-rc.d udhcpd disable
 ```
