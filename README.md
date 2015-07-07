@@ -55,9 +55,10 @@ My setup will be based on using the actual 3.5mm port of RPI, if you have a USB 
 
 1. Write Pi MusicBox image to your SD card. (do not remove SD card when complete)
 2. Open the SD Card -> Config -> Settings.ini in a text editor
-3. Change the MusicBox config settings, there is a config file below
+3. Change the MusicBox config settings in the settings.ini file you just opened
 
-The settings that matter are
+The settings that matter are directly below.
+An example of my config file is just below that.
 ```
 [network]
 wifi_network = YOUR_WIRELESS_NETWORK
@@ -69,7 +70,7 @@ wait_for_network = false
 root_password = ADD_A_ROOT_PASSWORD_HERE
 resize_once = true
 scan_once = true
-\#scan_always = true
+#scan_always = true
 
 [audio]
 output = analog
@@ -81,6 +82,7 @@ mixer = software
 card = 0
 control =  PCM
 ```
+This is what my config file looks like.
 ```
 ################################# 
 # Pi MusicBox / Mopidy Settings # 
@@ -124,12 +126,11 @@ mount_password =
 workgroup = WORKGROUP
 
 # Enable this to allow remote login via SSH on MusicBox
-**enable_ssh = true**
+enable_ssh = true
 
 # By default, MusicBox waits for the network to come up, since there is not much to do without a network.
 # If you want to skip this, e.g. for testing purposes, uncomment this line
-**wait_for_network = false**
-#This is dealt with by our new scripts being added
+wait_for_network = false
 
 # -----------
 # | Spotify |
@@ -256,22 +257,22 @@ enabled = false
 # ---------------------
 # | MusicBox Settings |
 # ---------------------
-**[musicbox]
+[musicbox]
 # To secure your device, change the default password to something else.
 # For security, the value in this file will be automatically cleaned out when the password is set in MusicBox
-root_password =** 
+root_password = ROOTPASSWORD
 
 # Automatically resize the filesystem and use all available space on your SD card. 
 # Use at your own risk, you could lose data on your card.  
 # (If so, you can put the original MusicBox image on it again and start over) 
-**resize_once = true**
+resize_once = true
 
-**# Scan on startup for new music files on the SD card or the network shares (could take a while!).
+# Scan on startup for new music files on the SD card or the network shares (could take a while!).
 # Local files work ok for moderate size collections. Large music database sizes could cause problems.
 # IMPORTANT: if you enable scan_always this will scan on every boot.
 # If your music doesn't change or you only stream music set scan_once instead. 
 #scan_once = true
-scan_always = true**
+scan_always = true
 
 # MusicBox can automatically start playing a stream/song after startup.
 # It will wait up to autoplaymaxwait seconds before trying to do so for the system to first become ready.
@@ -285,10 +286,10 @@ autoplaymaxwait = 60
 # -------------
 # Set these options to enable streaming to Pi MusicBox
 # AirTunes (using Shairport-sync):
-**enable_shairport = true**
+enable_shairport = true
 
 # DLNA/uPnP/OpenHome (using upmpdcli):
-**enable_upnp = true**
+enable_upnp = true
 
 # ------------------
 # | Audio Settings |
@@ -306,8 +307,7 @@ downsample_usb = true
 [audio]
 # Set the startup volume of MusicBox
 # Values: from 0 to 100
-**mixer_volume = 25**
-# This is the startup volume of the system
+mixer_volume = 25
 
 # --------------------------------------------------------------------------
 # | OTHER Settings                                                         |
@@ -332,9 +332,9 @@ mixer = software
 # Run the command 'amixer scontrols' from the commandline to list available controls on your system
 # See https://github.com/mopidy/mopidy-alsamixer
 [alsamixer]
-**card =0** 
-**control =PCM** 
-#**The card and control settings can be retrieved be following the MusicBox tutorial discussed above. These should work for the 3.5mm jack 0, PCM, respectively**
+card =0
+control =PCM
+
 
 [stream]
 enabled = true
@@ -371,8 +371,8 @@ debug_file = /var/log/mopidy/mopidy-debug.log
 
 [local]
 enabled = true
-**media_dir = /music**
-**playlists_dir = /var/lib/mopidy/playlists**
+media_dir = /music
+playlists_dir = /var/lib/mopidy/playlists
 data_dir = /var/lib/mopidy/localdata
 #This sets the method of indexing local files
 #You can set it to json or whoosh. Whoosh might be better with large collections, JSON is a bit more mature.
@@ -385,3 +385,24 @@ scan_flush_threshold = 1000
 excluded_file_extensions = .html, .jpeg, .jpg, .log, .nfo, .png, .txt, .mkv, .avi, .divx, .qt, .wmv, .htm, .zip, .rar, .gz, .pdf, .exe, .ini, .mid, .db, .m3u, .sfv, .midi
 
 ```
+
+4. After saving your new config file, remove the SD card, insert into your RPI and boot it up.
+- The first boot will be the longest as it resizes your sd card partition and scans for local media
+
+5. Once the RPI has booted up you will need to access the terminal. If you have an HDMI plugged in with a keyboard that will work, otherwise you will need to SSH into the machine.
+- To SSH into the machine requires that you entered wifi configuration in step 3, or you have an ethernet connection established.
+- It also required you know the IP address of the RPI. For this you can use your router configuration screen to find it or you will need to run the ifconfig option with an HDMI and keyboard connected to the RPI
+
+6. Once you are in the terminal, you will want to update the pi respositories. to do this you will run the following command.
+``` apt-get update ```
+
+7. Next you will want to install and configure the packages for the wifi hotspot. This is done by following the directions from steps 1 to 3 only posted [on this page here](http://elinux.org/RPI-Wireless-Hotspot).
+** I have tested going through all the steps for something else, it broke everything. I do not recommend it.
+After following those steps you have all the packages installed and configured to use your pi as a very basic wifi hotspot that you can access even when there is no internet. 
+
+8. To make sure these services do not run on boot run the following commands
+``` 
+update-rc.d hostapd disable
+update-rc.d udhcpd disable
+```
+Our script will take care of launching these services
